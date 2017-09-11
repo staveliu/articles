@@ -34,11 +34,33 @@ class Manager{
 		  }else{
 			  $row=mysql_fetch_array($query);
 			  return $row;//
-		  }
+		  } 
 	}
 	public function dologin($username,$password_md5){
 		$query=mysql_query("SELECT * FROM `user` WHERE `username`='$username'");
 		$row=mysql_fetch_array($query);
+		if (mysql_num_rows($query)){
+			return "Username_Not_Exist";//
+		}
+		$password_v=$row["password"];
+		if ($password_v!=$password_md5){
+			return "Password_Error";//
+		}else{
+			$random_verify=rand(100000,999999).rand(100000,999999).rand(100000,999999);
+			$update=mysql_query("UPDATE `user` SET `random_verify`='$random_verify' WHERE `username`='$username'");
+			if (!$update){
+				return "Unknown_Error";//
+			}else{
+				$_SESSION["random_verify"]=$random_verify;
+				$_SESSION["username"]=$username;
+				return "Login_Success";//
+			}
+		}
+	}
+}
+class Articles{
+	public function Get_Articles_List{
+		$query=mysql_query("SELECT * FROM `articles`");
 		
-	}o
+	}
 }
