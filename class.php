@@ -24,7 +24,7 @@ class Manager{
 				return "Article_Change_Succeed";//
 			}else{
 				return "Article_Change_Failed";//
-			}
+	 		}
 		}
 	}
 	public function Change_Articles($title){
@@ -59,8 +59,25 @@ class Manager{
 	}
 }
 class Articles{
-	public function Get_Articles_List{
+	public function Get_Articles_List(){
 		$query=mysql_query("SELECT * FROM `articles`");
-		
+		if (!$query){
+			return "Error";//
+		}
+		$rows=mysql_fetch_array($result);
+		return $rows;//
 	}
+	public function See_Article($title){
+		$query=mysql_query("SELECT * FROM `articles` WHERE `title`='$title'");
+		$row=mysql_fetch_array($query);
+		if (!mysql_num_rows($query)){
+			return "Article_Not_Exist";//
+		}
+		$article[1]=$row["date"];
+		$article[2]=$row["title"];
+		$article[3]=$row["content"];
+		$article[4]=$row["place"];
+		return $article;
+	}
+	public function 
 }

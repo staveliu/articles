@@ -38,3 +38,4 @@ if ($request="dologin"){
 	if ($dologin)/////////////////
 }
 include 'footer.htm';
+?> 
